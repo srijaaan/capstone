@@ -1,21 +1,23 @@
-import './category-preview.styles.scss'
-import ProductCard from '../product-card/product-card.component'
+import {
+  CategoryPreviewContainer,
+  Title,
+  Preview,
+} from "./category-preview.styles";
+import ProductCard from "../product-card/product-card.component";
 
-const CategoryPreview = ({title, products}) => {
+const CategoryPreview = ({ title, products }) => {
   return (
-    <div className="category-preview-container">
-        <h2>
-            <span className="title">{title.toUpperCase()}</span>
-        </h2>
-        <div className="preview">
-            {
-                products.map((product)=>(
-                    <ProductCard key={product.id} product={product}/>
-                )).slice(0,4)
-            }
-        </div>
-    </div>
-  )
-}
+    <CategoryPreviewContainer>
+      <h2>
+        <Title to={title}>{title.toUpperCase()}</Title>
+      </h2>
+      <Preview>
+        {products
+          .map((product) => <ProductCard key={product.id} product={product} />)
+          .slice(0, 4)}
+      </Preview>
+    </CategoryPreviewContainer>
+  );
+};
 
-export default CategoryPreview
+export default CategoryPreview;
