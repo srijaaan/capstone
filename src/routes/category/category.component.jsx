@@ -5,7 +5,7 @@ import ProductCard from "../../components/product-card/product-card.component";
 
 import { CategoryContainer, Title } from "./category.styles";
 import { useSelector } from "react-redux";
-import { selectCategoriesMap } from "../../store/categories/categories.selctor";
+import { selectCategoriesMap } from "../../store/categories/category.selector";
 
 const Category = () => {
   const { category } = useParams();

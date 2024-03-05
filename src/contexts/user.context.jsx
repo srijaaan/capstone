@@ -10,32 +10,32 @@ export const UserContext = createContext({
   setCurrentUser: () => null,
 });
 
-const USER_ACTION_TYPES ={
-  SET_CURRENT_USER : 'SET_CURRENT_USER'
-}
+const USER_ACTION_TYPES = {
+  SET_CURRENT_USER: "SET_CURRENT_USER",
+};
 
-export const userReducer = (state, action) =>{
-  const {type, payload} = action
-  switch (type){
+export const userReducer = (state, action) => {
+  const { type, payload } = action;
+  switch (type) {
     case USER_ACTION_TYPES.SET_CURRENT_USER:
-      return{
+      return {
         ...state,
-        currentUser:payload
-      }
+        currentUser: payload,
+      };
     default:
-      throw new Error(`Unhandled type ${type} in userReducer`)
+      throw new Error(`Unhandled type ${type} in userReducer`);
   }
-}
+};
 
-const INITIAL_STATE={
-  currentUser:null
-}
+const INITIAL_STATE = {
+  currentUser: null,
+};
 
 export const UserProvider = ({ children }) => {
-  const [{currentUser}, dispatch] = useReducer(userReducer, INITIAL_STATE)
-  const setCurrentUser =(user)=>{
-    dispatch(createActions(USER_ACTION_TYPES.SET_CURRENT_USER, user))
-  }
+  const [{ currentUser }, dispatch] = useReducer(userReducer, INITIAL_STATE);
+  const setCurrentUser = (user) => {
+    dispatch(createActions(USER_ACTION_TYPES.SET_CURRENT_USER, user));
+  };
   useEffect(() => {
     const unsubscribe = onAuthStateChangeListner((user) => {
       if (user) {

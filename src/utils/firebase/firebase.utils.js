@@ -49,7 +49,7 @@ export const db = getFirestore();
 export const addCollectionAndDocument = async (
   collectionKey,
   objectsToAdd,
-  field
+  field,
 ) => {
   const collectionRef = collection(db, collectionKey);
   const batch = writeBatch(db);
@@ -67,19 +67,18 @@ export const getCategoriesAndDocuments = async () => {
   const collectionRef = collection(db, "categories");
   const q = query(collectionRef);
   const querySnapshot = await getDocs(q);
-  const categoryMap = querySnapshot.docs.reduce((acc, docSpanshot) => {
-    const { title, items } = docSpanshot.data();
-    acc[title.toLowerCase()] = items;
-    return acc;
-  }, {});
-  return categoryMap;
+  return querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
+  // .reduce((acc, docSpanshot) => {
+  //   const { title, items } = docSpanshot.data();
+  //   acc[title.toLowerCase()] = items;
+  //   return acc;
+  // }, {});
+  // return categoryMap;
 };
-
-
 
 export const createUserDocumentFromAuth = async (
   userAuth,
-  additionalInfo = {}
+  additionalInfo = {},
 ) => {
   if (!userAuth) return;
   const userDocRef = doc(db, "users", userAuth.uid);
